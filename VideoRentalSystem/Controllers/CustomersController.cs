@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using VideoRentalSystem.Models;
 using System.Data.Entity;
-
+using VideoRentalSystem.ViewModels;
 
 namespace VideoRentalSystem.Controllers
 {
@@ -39,5 +39,55 @@ namespace VideoRentalSystem.Controllers
                 return HttpNotFound();
             return View(customer);
         }
+
+        public ActionResult New()
+        {
+            var membershipTypes = _context.MembershipTypes.ToList();
+            var viewModel = new CustomerFormViewModel
+            {
+                MembershipTypes = membershipTypes,
+                New = true
+            };
+
+            return View("CustomerForm", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Update(Customer customer)
+        {
+            if (customer.Id == 0)
+                _context.Customers.Add(customer);
+            else
+            {
+                var customerInDB = _context.Customers.Single(c => c.Id == customer.Id);
+                customerInDB.Name = customer.Name;
+                customerInDB.Birthdate = customer.Birthdate;
+                customerInDB.MembershipTypeId = customer.MembershipTypeId;
+                customerInDB.IsSubscribedToNewsLetter = customer.IsSubscribedToNewsLetter;
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index","Customers");
+        }
+
+        [Route("Customers/Edit/{id}")]
+        public ActionResult Edit(int id)
+        {
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+            if (customer == null)
+                return HttpNotFound();
+
+            var viewModel = new CustomerFormViewModel
+            {
+                Customer = customer,
+                MembershipTypes = _context.MembershipTypes.ToList(),
+                New = false
+
+            };
+
+            return View("CustomerForm", viewModel);
+        }
     }
+
 }

@@ -1,0 +1,44 @@
+﻿@model VideoRentalSystem.ViewModels.MovieFormViewModel
+    ViewBag.Title = "MovieForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.New == true)
+{
+    <h2>Add New Movie</h2>
+}
+else
+{
+    <h2>Edit: @Model.Movie.Title</h2>
+}
+
+@using (Html.BeginForm("Update", "Movies"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.Title)
+        @Html.TextBoxFor(m => m.Movie.Title, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.ReleaseDate)
+        @Html.TextBoxFor(m => m.Movie.ReleaseDate, "{0:MMMM d, yyyy}", new { @class = "form-control" })
+    </div>
+
+    @if (Model.New == false)
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.Movie.DateAdded)
+            @Html.TextBoxFor(m => m.Movie.ReleaseDate, "{0:MMMM d, yyyy}", new { @class = "form-control", @readonly = "readonly" })
+        </div>
+    }
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.NumberInStock )
+        @Html.TextBoxFor(m => m.Movie.NumberInStock, new { @class = "form-control" })
+    </div>
+
+
+}
+
+
+

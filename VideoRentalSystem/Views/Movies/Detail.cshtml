@@ -1,0 +1,28 @@
+﻿@model VideoRentalSystem.Models.Movie
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <h2>@Model.Title</h2>
+    <table id="movies" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th style="width: 115px">Genre: </th>
+                <td>@Model.Genre</td>
+            </tr>
+            <tr>
+                <th>Release Date:  </th>
+                <td>@Model.ReleaseDate.ToString("dddd, dd MMMM yyyy")</td>
+            </tr>
+            <tr>
+                <th>Date Added: </th>
+                <td>@Model.DateAdded.ToString("dddd, dd MMMM yyyy")</td>
+            </tr>
+            <tr>
+                <th>Number in Stock:</th>
+                <td>@Model.NumberInStock</td>
+            </tr>
+        </thead>
+    </table>
+
+
