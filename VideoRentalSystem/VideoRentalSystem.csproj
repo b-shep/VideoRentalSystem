@@ -204,6 +204,34 @@
     <Compile Include="Migrations\201907241424233_ApplyCustomerNameAnnotations.Designer.cs">
       <DependentUpon>201907241424233_ApplyCustomerNameAnnotations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907241932516_addNameColumnToMembershipType.cs" />
+    <Compile Include="Migrations\201907241932516_addNameColumnToMembershipType.Designer.cs">
+      <DependentUpon>201907241932516_addNameColumnToMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907241945125_NameDataMembershipTypes.cs" />
+    <Compile Include="Migrations\201907241945125_NameDataMembershipTypes.Designer.cs">
+      <DependentUpon>201907241945125_NameDataMembershipTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907241956434_UpdateNameAndDiscountRate.cs" />
+    <Compile Include="Migrations\201907241956434_UpdateNameAndDiscountRate.Designer.cs">
+      <DependentUpon>201907241956434_UpdateNameAndDiscountRate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907251216473_AddCustomerBirthDate.cs" />
+    <Compile Include="Migrations\201907251216473_AddCustomerBirthDate.Designer.cs">
+      <DependentUpon>201907251216473_AddCustomerBirthDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907251218194_UpdateCustomerBirthdates.cs" />
+    <Compile Include="Migrations\201907251218194_UpdateCustomerBirthdates.Designer.cs">
+      <DependentUpon>201907251218194_UpdateCustomerBirthdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907251234262_UpdateCustomerBirthdateNullable.cs" />
+    <Compile Include="Migrations\201907251234262_UpdateCustomerBirthdateNullable.Designer.cs">
+      <DependentUpon>201907251234262_UpdateCustomerBirthdateNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907251319212_AddMovieTable.cs" />
+    <Compile Include="Migrations\201907251319212_AddMovieTable.Designer.cs">
+      <DependentUpon>201907251319212_AddMovieTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -309,6 +337,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907241424233_ApplyCustomerNameAnnotations.resx">
       <DependentUpon>201907241424233_ApplyCustomerNameAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907241932516_addNameColumnToMembershipType.resx">
+      <DependentUpon>201907241932516_addNameColumnToMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907241945125_NameDataMembershipTypes.resx">
+      <DependentUpon>201907241945125_NameDataMembershipTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907241956434_UpdateNameAndDiscountRate.resx">
+      <DependentUpon>201907241956434_UpdateNameAndDiscountRate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907251216473_AddCustomerBirthDate.resx">
+      <DependentUpon>201907251216473_AddCustomerBirthDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907251218194_UpdateCustomerBirthdates.resx">
+      <DependentUpon>201907251218194_UpdateCustomerBirthdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907251234262_UpdateCustomerBirthdateNullable.resx">
+      <DependentUpon>201907251234262_UpdateCustomerBirthdateNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907251319212_AddMovieTable.resx">
+      <DependentUpon>201907251319212_AddMovieTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
