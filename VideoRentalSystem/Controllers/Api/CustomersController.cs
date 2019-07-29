@@ -20,70 +20,116 @@ namespace VideoRentalSystem.Controllers.Api
         }
 
         //GET /api/customers
-        public IEnumerable<Customer> GetCustomers()
+        public JsonResponse GetCustomers()
         {
-            return _context.Customers.ToList();
+            JsonResponse jr = null;
+            try
+            {
+                jr = JsonResponse.getInstance(_context.Customers.ToList());
+            }
+            catch (Exception e)
+            {
+                jr = JsonResponse.getInstance(e);
+            }
+            return jr;
 
         }
 
         //GET /api/customers/{id}
-        public Customer GetCustomer(int id)
+        public JsonResponse GetCustomer(int id)
         {
+            JsonResponse jr = null;
             try
             {
-                var customer = _context.Customers.Single(c => c.Id == id);
-                return customer;
+                jr = JsonResponse.getInstance(_context.Customers.Single(c => c.Id == id));
             }
             catch (Exception e)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return new JsonResponse(e);
             }
+            return jr;
         }
 
         //POST /api/customers/create
         [HttpPost]
         public Customer CreateCustomer(Customer customer)
         {
-            if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            JsonResponse jr = null;
 
-            _context.Customers.Add(customer);
-            _context.SaveChanges();
+            try
+            {
+                _context.Customers.Add(customer);
+                _context.SaveChanges();
+                jr = JsonResponse.getInstance(_context.SaveChanges());
+            } catch(Exception e)
+            {
+                jr = JsonResponse.getInstance(e);
+            }
+            
             return customer;
         }
 
         //PUT api/customers/{id}
         [HttpPut]
-        public Customer EditCustomer(int id, Customer customer)
+        public JsonResponse EditCustomer(int id, Customer customer)
         {
-            var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
 
-            if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
-            if (customerInDb == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-                
-            customerInDb.Name = customer.Name;
-            customerInDb.Birthdate = customer.Birthdate;
-            customerInDb.MembershipTypeId = customer.MembershipTypeId;
-            customerInDb.IsSubscribedToNewsLetter = customer.IsSubscribedToNewsLetter;
-            
-            _context.SaveChanges();
+            JsonResponse jr = null;
 
-            return customer;
+            try
+            {
+                var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
+
+                if (!ModelState.IsValid)
+                {
+                    jr = JsonResponse.getInstance("Error: Invalid customer fields");
+                }
+                else if (customerInDb == null)
+                {
+                    jr = JsonResponse.getInstance("Error: Customer with id=" + id + "could not be found in database.");
+                }
+                else
+                {
+                    customerInDb.Name = customer.Name;
+                    customerInDb.Birthdate = customer.Birthdate;
+                    customerInDb.MembershipTypeId = customer.MembershipTypeId;
+                    customerInDb.IsSubscribedToNewsLetter = customer.IsSubscribedToNewsLetter;
+
+                    jr = JsonResponse.getInstance(_context.SaveChanges());
+                }
+            }
+            catch (Exception e)
+            {
+                jr = JsonResponse.getInstance(e);
+            }
+
+            return jr;
         }
 
         //DELETE api/customers/1
         [HttpDelete]
-        public void DeleteCustomer(int id)
+        public JsonResponse DeleteCustomer(int id)
         {
-            var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
+            JsonResponse jr = null;
 
-            if (customerInDb == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+            try
+            {
 
-            _context.Customers.Remove(customerInDb);
-            _context.SaveChanges();
+                var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
+                if (customerInDb == null)
+                {
+                    jr = JsonResponse.getInstance("Error: Customer with id=" + id + "could not be found in database.");
+                }
+                else
+                {
+                    _context.Customers.Remove(customerInDb);
+                   jr =JsonResponse.getInstance (_context.SaveChanges());
+                }
+            } catch(Exception e)
+            {
+                jr = JsonResponse.getInstance(e);
+            }
+            return jr;
 
         }
 
