@@ -25,15 +25,15 @@ namespace VideoRentalSystem.Controllers
         [Route("Customers/Index")]
         public ActionResult Index()
         {                                     //loads membership type object instead of just membership.id
-                                                                               //causes db access to initiailize on startup instead of when called in stack. also parses to list
-           var customers = _context.Customers.Include(c => c.MembershipType).ToList();
+                                                                                //causes db access to initiailize on startup instead of when called in stack. also parses to list
+            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
 
             return View(customers);
         }
 
         [Route("Customers/Detail/{id}")]
         public ActionResult Detail(int id)
-        {                                       //selects single element if exists or default if doesn't
+        {                                                                       //selects single element if exists or default if doesn't
             var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
             if (customer == null)
                 return HttpNotFound();
@@ -42,10 +42,9 @@ namespace VideoRentalSystem.Controllers
 
         public ActionResult New()
         {
-            var membershipTypes = _context.MembershipTypes.ToList();
             var viewModel = new CustomerFormViewModel
             {
-                MembershipTypes = membershipTypes,
+                MembershipTypes = _context.MembershipTypes.ToList(),
                 New = true
             };
 
@@ -55,6 +54,29 @@ namespace VideoRentalSystem.Controllers
         [HttpPost]
         public ActionResult Update(Customer customer)
         {
+            if (customer.Id == 0)
+            {
+                ModelState.Remove("customer.Id");
+            }
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Select(x => x.Value.Errors)
+                       .Where(y => y.Count > 0)
+                       .ToList();
+
+                var viewModel = new CustomerFormViewModel
+                {
+                    Customer = customer,
+                    MembershipTypes = _context.MembershipTypes.ToList()
+                };
+                
+                if(customer.Id == 0)
+                {
+                    viewModel.New = true;
+                }
+                return View("CustomerForm", viewModel);
+            };
+
             if (customer.Id == 0)
                 _context.Customers.Add(customer);
             else

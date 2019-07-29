@@ -1,4 +1,5 @@
 ﻿@model VideoRentalSystem.ViewModels.MovieFormViewModel
+@{
     ViewBag.Title = "MovieForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -17,26 +18,47 @@ else
     <div class="form-group">
         @Html.LabelFor(m => m.Movie.Title)
         @Html.TextBoxFor(m => m.Movie.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Movie.Title)
     </div>
 
     <div class="form-group">
         @Html.LabelFor(m => m.Movie.ReleaseDate)
         @Html.TextBoxFor(m => m.Movie.ReleaseDate, "{0:MMMM d, yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Movie.ReleaseDate)
     </div>
 
-    @if (Model.New == false)
+    if (Model.New == false)
     {
         <div class="form-group">
             @Html.LabelFor(m => m.Movie.DateAdded)
-            @Html.TextBoxFor(m => m.Movie.ReleaseDate, "{0:MMMM d, yyyy}", new { @class = "form-control", @readonly = "readonly" })
+            @Html.TextBoxFor(m => m.Movie.DateAdded, "{0:MMMM d, yyyy HH:mm}", new { @class = "form-control", @readonly = "readonly" })
         </div>
     }
 
     <div class="form-group">
-        @Html.LabelFor(m => m.Movie.NumberInStock )
-        @Html.TextBoxFor(m => m.Movie.NumberInStock, new { @class = "form-control" })
+        @Html.LabelFor(m => m.Movie.GenreId)
+        @if (Model.New == true)
+        {
+            @Html.DropDownListFor(m => m.Movie.GenreId, new SelectList(Model.Genres, "Id", "Name"), "Select Genre", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Movie.GenreId)
+
+        }
+        else
+        {
+            @Html.DropDownListFor(m => m.Movie.GenreId, new SelectList(Model.Genres, "Id", "Name"), Model.Movie.Genre.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Movie.GenreId)
+        }
     </div>
 
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.NumberInStock)
+        @Html.TextBoxFor(m => m.Movie.NumberInStock, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Movie.NumberInStock)
+    </div>
+
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Movie.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
 
 }
 

@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using VideoRentalSystem.Models;
 using VideoRentalSystem.ViewModels;
+using System.Data.Entity;
+using System.Data.SqlTypes;
 
 namespace VideoRentalSystem.Controllers
 {
@@ -13,6 +15,7 @@ namespace VideoRentalSystem.Controllers
     {
         private ApplicationDbContext _context;
 
+      
         public MoviesController()
         {
             _context = new ApplicationDbContext();
@@ -27,7 +30,7 @@ namespace VideoRentalSystem.Controllers
         [Route("Movies/Index")]
         public ActionResult Index()
         {
-            var movies = _context.Movies.ToList();
+            var movies = _context.Movies.Include(m => m.Genre).ToList();
 
             return View(movies);
         }
@@ -44,10 +47,76 @@ namespace VideoRentalSystem.Controllers
             return View(movie);
         }
 
- //       public ActionResult New
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Update(Movie movie)
+        {
+
+            if (movie.Id == 0)
+            {
+                movie.DateAdded = DateTime.Now;
+                ModelState.Remove("movie.Id");
+            }
+
+            if (!ModelState.IsValid)
+            {
+
+                var viewModel = new MovieFormViewModel
+                {
+                    Movie = movie,
+                    Genres = _context.Genres.ToList(),
+                };
+                if (movie.Id == 0)
+                {
+                    viewModel.New = true;
+                }
+
+                return View("MovieForm", viewModel);
+            };
 
 
+            if (movie.Id == 0) {
+                _context.Movies.Add(movie);
+            }
+            else
+            {
+                var movieFromDB = _context.Movies.Single(m => m.Id == movie.Id);
+                movieFromDB.Title = movie.Title;
+                movieFromDB.GenreId = movie.GenreId;
+                movieFromDB.DateAdded = movie.DateAdded;
+                movieFromDB.ReleaseDate = movie.ReleaseDate;
+                movieFromDB.NumberInStock = movie.NumberInStock;
+            }
 
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Movies");
+        }
+
+        [Route("Movies/New")]
+        public ActionResult New()
+        {
+            var viewModel = new MovieFormViewModel
+            {
+                Genres = _context.Genres.ToList(),
+                New = true
+            };
+
+            return View("MovieForm", viewModel);
+        }
+
+        [Route("movies/edit/{id}")]
+        public ActionResult Edit(int id)
+        {
+            var viewModel = new MovieFormViewModel
+            {
+                Genres = _context.Genres.ToList(),
+                New = false,
+                Movie = _context.Movies.Single(m => m.Id == id)
+            };
+
+            return View("MovieForm", viewModel);
+        }
 
     }
 }

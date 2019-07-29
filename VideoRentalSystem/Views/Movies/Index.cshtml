@@ -6,6 +6,7 @@
 }
 
 <h2>Movies</h2>
+<a href="/Movies/New" class="btn btn-primary">ADD MOVIE</a>
 
 <table id="movies" class="table table-bordered table-hover">
     <thead>
@@ -18,8 +19,8 @@
     @foreach (VideoRentalSystem.Models.Movie movie in Model)
     {
         <tr>
-            <td>@Html.ActionLink(movie.Title, "Detail", "Movies", new { id = movie.Id }, null)</td>
-            <td>@movie.Genre</td>
+            <td>@Html.ActionLink(movie.Title, "Edit", "Movies", new { id = movie.Id }, null)</td>
+            <td>@movie.Genre.Name</td>
         </tr>
     }
 

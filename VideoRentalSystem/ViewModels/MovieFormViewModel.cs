@@ -8,7 +8,8 @@ namespace VideoRentalSystem.ViewModels
 {
     public class MovieFormViewModel
     {
-        public Movie Movie;
-        public bool New;
+        public Movie Movie { get; set; }
+        public List<Genre> Genres { get; set; }
+        public bool New { get; set; }
     }
 }

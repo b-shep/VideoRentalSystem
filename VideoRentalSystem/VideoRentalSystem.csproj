@@ -181,6 +181,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\CustomersController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -240,18 +241,72 @@
     <Compile Include="Migrations\201907251718564_UpdateCustomerColumnLabels.Designer.cs">
       <DependentUpon>201907251718564_UpdateCustomerColumnLabels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907261413057_UpdateGenre.cs" />
+    <Compile Include="Migrations\201907261413057_UpdateGenre.Designer.cs">
+      <DependentUpon>201907261413057_UpdateGenre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907261424588_AddGenreTable.cs" />
+    <Compile Include="Migrations\201907261424588_AddGenreTable.Designer.cs">
+      <DependentUpon>201907261424588_AddGenreTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907261441213_FixGenreTable.cs" />
+    <Compile Include="Migrations\201907261441213_FixGenreTable.Designer.cs">
+      <DependentUpon>201907261441213_FixGenreTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907261501330_MovieDropGenreColumn.cs" />
+    <Compile Include="Migrations\201907261501330_MovieDropGenreColumn.Designer.cs">
+      <DependentUpon>201907261501330_MovieDropGenreColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907261538085_UpdateGenresMovie.cs" />
+    <Compile Include="Migrations\201907261538085_UpdateGenresMovie.Designer.cs">
+      <DependentUpon>201907261538085_UpdateGenresMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907261553166_ChangeGenreByIdName.cs" />
+    <Compile Include="Migrations\201907261553166_ChangeGenreByIdName.Designer.cs">
+      <DependentUpon>201907261553166_ChangeGenreByIdName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907261757101_RedoMovies.cs" />
+    <Compile Include="Migrations\201907261757101_RedoMovies.Designer.cs">
+      <DependentUpon>201907261757101_RedoMovies.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907261830307_redoMoviesAgain.cs" />
+    <Compile Include="Migrations\201907261830307_redoMoviesAgain.Designer.cs">
+      <DependentUpon>201907261830307_redoMoviesAgain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907261841076_RedoMovies1moreTime.cs" />
+    <Compile Include="Migrations\201907261841076_RedoMovies1moreTime.Designer.cs">
+      <DependentUpon>201907261841076_RedoMovies1moreTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907261845459_redomoviesagaaaain.cs" />
+    <Compile Include="Migrations\201907261845459_redomoviesagaaaain.Designer.cs">
+      <DependentUpon>201907261845459_redomoviesagaaaain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907261932506_UpdateRequiredFieldsInCustomerAndMovie.cs" />
+    <Compile Include="Migrations\201907261932506_UpdateRequiredFieldsInCustomerAndMovie.Designer.cs">
+      <DependentUpon>201907261932506_UpdateRequiredFieldsInCustomerAndMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907271542266_MovieGenreRequired.cs" />
+    <Compile Include="Migrations\201907271542266_MovieGenreRequired.Designer.cs">
+      <DependentUpon>201907271542266_MovieGenreRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907291345308_MovieDateAddedDateTime2.cs" />
+    <Compile Include="Migrations\201907291345308_MovieDateAddedDateTime2.Designer.cs">
+      <DependentUpon>201907291345308_MovieDateAddedDateTime2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
+    <Compile Include="Models\Min18YearsIfAMember.cs" />
     <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\StockIfLessThan1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CustomersViewModel.cs" />
     <Compile Include="ViewModels\MovieFormViewModel.cs" />
-    <Compile Include="ViewModels\MoviesViewModel.cs" />
     <Compile Include="ViewModels\CustomerFormViewModel.cs" />
     <Compile Include="ViewModels\RandomMovieViewModel.cs" />
   </ItemGroup>
@@ -377,6 +432,45 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907251718564_UpdateCustomerColumnLabels.resx">
       <DependentUpon>201907251718564_UpdateCustomerColumnLabels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907261413057_UpdateGenre.resx">
+      <DependentUpon>201907261413057_UpdateGenre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907261424588_AddGenreTable.resx">
+      <DependentUpon>201907261424588_AddGenreTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907261441213_FixGenreTable.resx">
+      <DependentUpon>201907261441213_FixGenreTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907261501330_MovieDropGenreColumn.resx">
+      <DependentUpon>201907261501330_MovieDropGenreColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907261538085_UpdateGenresMovie.resx">
+      <DependentUpon>201907261538085_UpdateGenresMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907261553166_ChangeGenreByIdName.resx">
+      <DependentUpon>201907261553166_ChangeGenreByIdName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907261757101_RedoMovies.resx">
+      <DependentUpon>201907261757101_RedoMovies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907261830307_redoMoviesAgain.resx">
+      <DependentUpon>201907261830307_redoMoviesAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907261841076_RedoMovies1moreTime.resx">
+      <DependentUpon>201907261841076_RedoMovies1moreTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907261845459_redomoviesagaaaain.resx">
+      <DependentUpon>201907261845459_redomoviesagaaaain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907261932506_UpdateRequiredFieldsInCustomerAndMovie.resx">
+      <DependentUpon>201907261932506_UpdateRequiredFieldsInCustomerAndMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907271542266_MovieGenreRequired.resx">
+      <DependentUpon>201907271542266_MovieGenreRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907291345308_MovieDateAddedDateTime2.resx">
+      <DependentUpon>201907291345308_MovieDateAddedDateTime2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
