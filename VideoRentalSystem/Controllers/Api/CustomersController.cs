@@ -59,7 +59,6 @@ namespace VideoRentalSystem.Controllers.Api
             try
             {
                 _context.Customers.Add(customer);
-                _context.SaveChanges();
                 jr = JsonResponse.getInstance(_context.SaveChanges());
             } catch(Exception e)
             {
@@ -71,14 +70,14 @@ namespace VideoRentalSystem.Controllers.Api
 
         //PUT api/customers/{id}
         [HttpPut]
-        public JsonResponse EditCustomer(int id, Customer customer)
+        public JsonResponse EditCustomer(Customer customer)
         {
 
             JsonResponse jr = null;
 
             try
             {
-                var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
+                var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == customer.Id);
 
                 if (!ModelState.IsValid)
                 {
@@ -86,7 +85,7 @@ namespace VideoRentalSystem.Controllers.Api
                 }
                 else if (customerInDb == null)
                 {
-                    jr = JsonResponse.getInstance("Error: Customer with id=" + id + "could not be found in database.");
+                    jr = JsonResponse.getInstance("Error: Customer with id=" + customer.Id + "could not be found in database.");
                 }
                 else
                 {
@@ -94,8 +93,9 @@ namespace VideoRentalSystem.Controllers.Api
                     customerInDb.Birthdate = customer.Birthdate;
                     customerInDb.MembershipTypeId = customer.MembershipTypeId;
                     customerInDb.IsSubscribedToNewsLetter = customer.IsSubscribedToNewsLetter;
+                    _context.SaveChanges();
 
-                    jr = JsonResponse.getInstance(_context.SaveChanges());
+                    jr = JsonResponse.getInstance(customerInDb);
                 }
             }
             catch (Exception e)
@@ -123,6 +123,7 @@ namespace VideoRentalSystem.Controllers.Api
                 else
                 {
                     _context.Customers.Remove(customerInDb);
+
                    jr =JsonResponse.getInstance (_context.SaveChanges());
                 }
             } catch(Exception e)
